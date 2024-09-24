@@ -9,15 +9,16 @@ const theme = createTheme({
                     width: '100%', // Ensure AppBar is full width
                     position: 'fixed', // Fix position to top
                     zIndex: 1300, // Ensure it stays on top of other content
+                    paddingTop : '10px'
                 },
             },
         },
         MuiContainer: {
             styleOverrides: {
                 root: {
-                    paddingLeft: '16px', // Adjust as needed
-                    paddingRight: '16px', // Adjust as needed
-                    maxWidth: '100%', // Ensure it doesn't constrain width
+                    maxWidth: '100%',
+                    width: '100%',
+                    padding: '20px 0 10px 0',
                 },
             },
         },
