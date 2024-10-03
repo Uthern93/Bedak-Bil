@@ -1,11 +1,11 @@
-import { AppBar, Box, Toolbar, Container } from '@mui/material';
+import {AppBar, Box, Toolbar, Container, BottomNavigation, BottomNavigationAction, Paper} from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './Theme'; // Import your custom theme
+import theme from './Theme';
+import BottomNav from "./bottomNav";
 
 const MainLayout = () => {
-    console.log("Rendering MainLayout");
 
     return (
         <ThemeProvider theme={theme}>
@@ -18,15 +18,19 @@ const MainLayout = () => {
                     minHeight: '100vh',
                 }}
             >
-                <AppBar sx={{ backgroundColor: 'transparent', boxShadow: 'none'}} position='fixed'>
+                {/* Top Bar */}
+                <AppBar sx={{ backgroundColor: 'transparent', boxShadow: 'none'}} position="static">
                     <Toolbar>
                         <Header />
                     </Toolbar>
                 </AppBar>
+                {/* Main Content */}
                 <Container>
                     <Outlet />
                 </Container>
             </Box>
+            {/* Bottom Nav */}
+            <BottomNav/>
         </ThemeProvider>
     );
 };

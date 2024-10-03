@@ -2,22 +2,16 @@ import { Grid, Typography, Box} from '@mui/material';
 import TotalUnpaid from './TotalUnpaid';
 import TotalToReceive from './TotalToReceive';
 import UpcomingBill from './UpcomingBill';
-import Referral from "./Referral";
+import Overview from "./Overview";
 
 const Dashboard = () => {
     console.log("Rendering Dashboard");
 
     return (
-        <Grid container spacing={2} sx={{padding: "0 12px 0 12px"}}>
+        <Grid container spacing={2} sx={{padding: "0 12px 0px 12px"}}>
             <Grid item xs={12}>
                 {/* Content */}
                 <Grid container spacing={3}>
-
-                    <Grid item xs={12}>
-                        <Typography sx={{ color: 'black', fontSize: '24px' }}> Hello, </Typography>
-                        {/* Username */}
-                        <Typography sx={{ color: 'black', fontSize: '24px', fontWeight: 'bold' }}> Uthern! </Typography>
-                    </Grid>
 
                     {/* Total amount to be paid or get paid */}
                     <Grid item xs={6} md={6}>
@@ -45,15 +39,15 @@ const Dashboard = () => {
                         <UpcomingBill/>
                     </Grid>
 
-                    {/* Friends Referral */}
+                    {/* Friends Expenses */}
                     <Grid item xs={12} md={12}>
                         <Typography sx={{ color: 'black', fontWeight: 'bold' }}>
-                            Refer a Friend
+                            Friends' Expenses
                         </Typography>
                     </Grid>
 
                     <Grid item xs={12} md={12}>
-                        <Referral/>
+                        <Overview/>
                     </Grid>
 
                 </Grid>

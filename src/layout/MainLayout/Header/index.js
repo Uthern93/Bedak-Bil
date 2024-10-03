@@ -8,13 +8,18 @@ const Header = () => {
         <Grid container spacing={1} alignItems="center" sx={{ width: '100%'}}>
             {/* Left half - Back Button except on home page */}
             <Grid item xs={6} lg={6} md={6}>
-
+                <Box sx={{flexDirection: 'column'}}>
+                    <Grid item xs={12}>
+                        <Typography sx={{ color: 'black', fontSize: '22px' }}> Hello, </Typography>
+                        {/* Username */}
+                        <Typography sx={{ color: 'black', fontSize: '24px', fontWeight: 'bold' }}> Uthern! </Typography>
+                    </Grid>
+                </Box>
             </Grid>
 
             {/* Right half - Search Icon & Notification Icon  */}
             <Grid item xs={6} lg={6} md={6}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
-
                     <Button
                         sx={{
                             backgroundColor: 'white',
