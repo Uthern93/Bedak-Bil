@@ -18,7 +18,7 @@ const MainLayout = () => {
                     minHeight: '100vh',
                 }}
             >
-                <AppBar sx={{ backgroundColor: 'transparent', boxShadow: 'none'}}>
+                <AppBar sx={{ backgroundColor: 'transparent', boxShadow: 'none'}} position='fixed'>
                     <Toolbar>
                         <Header />
                     </Toolbar>

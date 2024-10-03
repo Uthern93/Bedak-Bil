@@ -1,7 +1,8 @@
-import { Grid, Typography} from '@mui/material';
+import { Grid, Typography, Box} from '@mui/material';
 import TotalUnpaid from './TotalUnpaid';
 import TotalToReceive from './TotalToReceive';
 import UpcomingBill from './UpcomingBill';
+import Referral from "./Referral";
 
 const Dashboard = () => {
     console.log("Rendering Dashboard");
@@ -18,6 +19,7 @@ const Dashboard = () => {
                         <Typography sx={{ color: 'black', fontSize: '24px', fontWeight: 'bold' }}> Uthern! </Typography>
                     </Grid>
 
+                    {/* Total amount to be paid or get paid */}
                     <Grid item xs={6} md={6}>
                         <TotalUnpaid name="Total Unpaid"/>
                     </Grid>
@@ -41,6 +43,17 @@ const Dashboard = () => {
 
                     <Grid item xs={12} md={12}>
                         <UpcomingBill/>
+                    </Grid>
+
+                    {/* Friends Referral */}
+                    <Grid item xs={12} md={12}>
+                        <Typography sx={{ color: 'black', fontWeight: 'bold' }}>
+                            Refer a Friend
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Referral/>
                     </Grid>
 
                 </Grid>

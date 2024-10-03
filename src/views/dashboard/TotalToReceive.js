@@ -13,6 +13,7 @@ const CardWrapper = styled(Box)(({ theme }) => ({
         transform: 'scale(1.03)', // Slight scaling effect on hover for interactivity
         boxShadow: '0 12px 24px rgba(0, 0, 0, 0.2)', // Elevation change on hover
     },
+    // Animation for the 'after' pseudo-element
     '&:after': {
         content: '""',
         position: 'absolute',
@@ -22,7 +23,9 @@ const CardWrapper = styled(Box)(({ theme }) => ({
         borderRadius: '50%',
         top: -40,
         right: -150,
+        animation: 'moveAfter 6s ease-in-out infinite', // Add animation here
     },
+    // Animation for the 'before' pseudo-element
     '&:before': {
         content: '""',
         position: 'absolute',
@@ -32,6 +35,17 @@ const CardWrapper = styled(Box)(({ theme }) => ({
         borderRadius: '50%',
         top: -120,
         right: -110,
+        animation: 'moveBefore 6s ease-in-out infinite', // Add animation here
+    },
+    '@keyframes moveAfter': {
+        '0%': { top: -40, right: -150 },
+        '50%': { top: -60, right: -130 }, // Move slightly up and right
+        '100%': { top: -40, right: -150 }, // Reset to the original position
+    },
+    '@keyframes moveBefore': {
+        '0%': { top: -120, right: -110 },
+        '50%': { top: -140, right: -90 }, // Move slightly up and right
+        '100%': { top: -120, right: -110 }, // Reset to the original position
     }
 }));
 
