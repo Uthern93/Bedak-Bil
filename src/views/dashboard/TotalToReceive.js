@@ -6,7 +6,7 @@ const CardWrapper = styled(Box)(({ theme }) => ({
     overflow: 'hidden',
     background: '#465efd', // Primary color
     borderRadius: '25px', // Slightly sharper border radius for modern look
-    padding: '24px 30px', // Adjust padding for a more comfortable feel
+    padding: '24px 20px', // Adjust padding for a more comfortable feel
     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)', // Softer but deeper shadow
     transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out', // Smooth hover effect
     '&:hover': {
