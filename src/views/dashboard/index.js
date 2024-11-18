@@ -8,7 +8,7 @@ const Dashboard = () => {
     console.log("Rendering Dashboard");
 
     return (
-        <Grid container spacing={2} sx={{padding: "0 12px 0px 12px"}}>
+        <Grid container spacing={2}>
             <Grid item xs={12}>
                 {/* Content */}
                 <Grid container spacing={3}>

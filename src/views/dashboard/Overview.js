@@ -1,105 +1,68 @@
-import {Grid, Box, Typography, Paper} from "@mui/material";
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import React from 'react';
+import { Box, Typography, Avatar, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, IconButton } from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const Overview = () => {
-
-    // dummy data with a settled field
     const expense = [
-        {
-            username: "Aiman",
-            amount: 0,
-            youOwe: false // They owe you
-        },
-        {
-            username: "Haziq",
-            amount: 150,
-            youOwe: true // You owe them
-        },
-        {
-            username: "Irfan",
-            amount: 0,
-            youOwe: false // They owe you
-        },
-        {
-            username: "Akmal",
-            amount: 100,
-            youOwe: true // You owe them
-        },
-        {
-            username: "Zahir Lim",
-            amount: 500,
-            youOwe: false // They owe you
-        }
+        { username: "Aiman", amount: 0, youOwe: false },
+        { username: "Haziq", amount: 150, youOwe: true },
+        { username: "Irfan", amount: 0, youOwe: false },
+        { username: "Akmal", amount: 100, youOwe: true },
+        { username: "Zahir Lim", amount: 500, youOwe: false }
     ];
 
     return (
-        <Paper sx={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            position: 'static',
-            borderRadius: '25px',
-            padding: '0 10px ',
+        <Box sx={{
+            backgroundColor: 'rgb(255, 255, 255)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)',
+            backdropFilter: 'blur(5px)',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            padding: '16px',
             marginBottom: '20px'
-        }}
-               elevation={6}>
-            <Grid container spacing={1}>
+        }}>
+            <List disablePadding>
                 {expense.map((item, index) => (
-                    <Grid item xs={12} key={index}>
-                        <Box
-                            sx={{
-                                backgroundColor: 'white',
-                                borderRadius: '25px',
-                                flexDirection: 'column',
-                                padding: '0 10px',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            <Grid container spacing={1} alignItems="center">
-                                <Grid item xs={2} md={2}>
-                                    <PersonOutlineOutlinedIcon />
-                                </Grid>
-
-                                <Grid item xs={8} md={8}>
-                                    <Typography sx={{ color: 'black', fontWeight: 'bold', fontSize: '16px' }}>
-                                        {item.username}
+                    <ListItem
+                        key={index}
+                        sx={{
+                            borderBottom: index !== expense.length - 1 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+                            py: 2
+                        }}
+                    >
+                        <ListItemAvatar>
+                            <Avatar sx={{ bgcolor: 'primary.main' }}>
+                                {item.username[0]}
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={item.username}
+                            secondary={
+                                item.amount === 0 ? (
+                                    <Typography variant="body2" color="text.secondary">
+                                        Settled Up
                                     </Typography>
-
-                                    {/* Use Box to display amount in the same row */}
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        {item.amount === 0 ? ( // Check if the amount is 0
-                                            <Typography sx={{ fontSize: '15px', color: 'gray' }}>
-                                                Settled Up
-                                            </Typography>
-                                        ) : (
-                                            <>
-                                                <Typography sx={{ fontSize: '15px' }}>
-                                                    {item.youOwe ? `You Owe: ` : `Owes you: `}
-                                                </Typography>
-
-                                                <Typography
-                                                    sx={{
-                                                        color: item.youOwe ? '#00e007' : '#a5001e',
-                                                        fontWeight: 'bold',
-                                                        fontSize: '15px',
-                                                        marginLeft: '5px'
-                                                    }}
-                                                >
-                                                    RM${item.amount}
-                                                </Typography>
-                                            </>
-                                        )}
-                                    </Box>
-                                </Grid>
-
-                                <Grid item xs={2} md={2}>
-                                    <ArrowForwardIosOutlinedIcon />
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Grid>
+                                ) : (
+                                    <Typography
+                                        variant="body2"
+                                        color={item.youOwe ? 'error.main' : 'success.main'}
+                                    >
+                                        {item.youOwe ? `You Owe: ` : `Owes you: `}
+                                        RM${item.amount}
+                                    </Typography>
+                                )
+                            }
+                        />
+                        <ListItemSecondaryAction>
+                            <IconButton edge="end">
+                                <ChevronRightIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
                 ))}
-            </Grid>
-        </Paper>
+            </List>
+        </Box>
     );
 }
 
