@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import MainLayout from "../layout/MainLayout";
 import Loadable from '../ui-component/Loadable';
 import loadable from "../ui-component/Loadable";
+import SplitBill from "../views/group/SplitTheBill";
 
 // import page routing
 const Dashboard = Loadable(lazy(() => import('../views/dashboard')));
@@ -33,6 +34,11 @@ const MainRoutes = {
             path: '/group/:groupId',
             element: <GroupDetails />
         },
+        {
+            path: '/group/splitBill',
+            element: <SplitBill />
+        },
+
         {
             path: '/profile',
             element: <Profile/>
