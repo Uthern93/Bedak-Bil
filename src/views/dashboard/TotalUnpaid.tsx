@@ -49,7 +49,7 @@ const CardWrapper = styled(Box)(({ theme }) => ({
     }
 }));
 
-const TotalUnpaid = ({name}) => {
+const TotalUnpaid = ({ name }: { name: string }) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -59,7 +59,7 @@ const TotalUnpaid = ({name}) => {
                         $450.50
                     </Typography>
 
-                    <Typography variant="h7" sx={{ color: 'white' }}>{name}</Typography>
+                    <Typography sx={{ color: 'white' }}>{name}</Typography>
                 </CardWrapper>
             </Grid>
         </Grid>

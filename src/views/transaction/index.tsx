@@ -4,7 +4,7 @@ import TotalTransaction from "./TotalTransaction";
 const transaction = () => {
     return (
         <Grid container spacing={2}>
-            <Grid item xs={11} md={11}>
+            <Grid item xs={12} md={12}>
                 <Box sx={{ width: '100%' }}>
                     <TotalTransaction />
                 </Box>

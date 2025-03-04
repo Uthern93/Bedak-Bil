@@ -4,13 +4,13 @@ import { Link, useLocation } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 // Import images statically
-import HomeIcon from "./home.png";
-import HomeActiveIcon from "./home_blue.png";
-import Transactions from "./transaction.png";
-import TransactionsActive from "./transaction_blue.png";
-import DocumentScannerIcon from "./scanner.png";
-import GroupIcon from "./group.png";
-import GroupActiveIcon from "./group_blue.png";
+const HomeIcon = require("./home.png");
+const HomeActiveIcon = require("./home_blue.png");
+const Transactions = require("./transaction.png");
+const TransactionsActive = require("./transaction_blue.png");
+const DocumentScannerIcon = require("./scanner.png");
+const GroupIcon = require("./group.png");
+const GroupActiveIcon = require("./group_blue.png");
 
 const BottomNav = () => {
     const location = useLocation();

@@ -40,7 +40,7 @@ const TotalTransaction = () => {
                     >
                         <Grid container spacing={2}>
                             <Grid item xs={8}>
-                                <Typography variant="h7" sx={{ color: 'black' }}>Total to pay</Typography>
+                                <Typography sx={{ color: 'black' }}>Total to pay</Typography>
                                 {/* Amount from API */}
                                 <Typography variant="h4" sx={{ color: 'black', fontWeight: 'bold' }}>
                                     $450.50

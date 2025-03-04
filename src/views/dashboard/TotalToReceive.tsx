@@ -49,7 +49,7 @@ const CardWrapper = styled(Box)(({ theme }) => ({
     }
 }));
 
-const TotalToReceive = ({name}) => {
+const TotalToReceive = ({ name }: { name: string }) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -58,7 +58,7 @@ const TotalToReceive = ({name}) => {
                     <Typography variant="h4" sx={{ mb: '2px', color: 'white', fontWeight: 'bold' }}>
                         $250.50
                     </Typography>
-                    <Typography variant="h7" sx={{ color: 'white' }}>{name}</Typography>
+                    <Typography sx={{ color: 'white' }}>{name}</Typography>
                 </CardWrapper>
             </Grid>
         </Grid>
