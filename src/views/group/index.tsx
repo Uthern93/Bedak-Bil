@@ -42,10 +42,6 @@ const Group = () => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
-                
-                <Typography variant="h5" fontWeight="bold" sx={{ mb: 2 }}>
-                    Groups
-                </Typography>
 
                 {groups.map((group) => (
                     <Link

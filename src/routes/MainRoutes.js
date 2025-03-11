@@ -3,7 +3,6 @@ import { lazy } from 'react';
 import MainLayout from "../layout/MainLayout";
 import Loadable from '../ui-component/Loadable';
 import loadable from "../ui-component/Loadable";
-import SplitBill from "../views/group/SplitTheBill";
 
 // import page routing
 const Dashboard = Loadable(lazy(() => import('../views/dashboard')));
@@ -11,6 +10,7 @@ const Transaction = Loadable(lazy(() => import('../views/transaction')));
 const Group = loadable(lazy(() => import('../views/group')));
 const Profile = Loadable(lazy(() => import('../views/profile')));
 const GroupDetails = loadable(lazy(() => import('../views/group/GroupDetails')));
+const SplitBill = loadable(lazy(() => import('../views/group/SplitTheBill')));
 
 console.log("Setting up MainRoutes");
 

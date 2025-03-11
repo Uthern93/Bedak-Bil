@@ -9,6 +9,13 @@ const transaction = () => {
                     <TotalTransaction />
                 </Box>
             </Grid>
+
+            {/* Upcoming Bill */}
+            <Grid item xs={8} md={8}>
+                <Typography sx={{ color: 'black', fontWeight: 'bold' }}>
+                    Recent Bills
+                </Typography>
+            </Grid>
         </Grid>
     );
 }

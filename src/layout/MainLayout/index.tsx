@@ -1,11 +1,21 @@
 import {AppBar, Box, Toolbar, Container, BottomNavigation, BottomNavigationAction, Paper} from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './Theme';
 import BottomNav from "./bottomNav";
+import { useEffect, useMemo, useState } from 'react';
+import CustomHeader from './customHeader';
 
 const MainLayout = () => {
+    const location = useLocation();
+    const [path, setPath] = useState(location.pathname);
+
+    useEffect(() => {
+        setPath(location.pathname);
+        console.log("Path updated:", location.pathname);
+    }, [location.pathname]);
+    
 
     return (
         <ThemeProvider theme={theme}>
@@ -20,8 +30,8 @@ const MainLayout = () => {
             >
                 {/* Top Bar */}
                 <AppBar sx={{ backgroundColor: 'transparent', boxShadow: 'none'}} position="static">
-                    <Toolbar>
-                        <Header />
+                    <Toolbar key={path}>
+                        {path === "/" ? <Header /> : <CustomHeader />}
                     </Toolbar>
                 </AppBar>
                 {/* Main Content */}

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
 }
@@ -26,6 +30,12 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.splash-bg {
+  background-image: url('../public/splash.svg');
+  background-size: cover;
+  background-position: center;
 }
 
 @keyframes App-logo-spin {

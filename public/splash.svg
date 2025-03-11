@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="1440" height="560" preserveAspectRatio="none" viewBox="0 0 1440 560">
+    <g mask="url(&quot;#SvgjsMask1044&quot;)" fill="none">
+        <rect width="1440" height="560" x="0" y="0" fill="rgba(70, 94, 253, 1)"></rect>
+        <path d="M801.98 314.17 a149.91 149.91 0 1 0 299.82 0 a149.91 149.91 0 1 0 -299.82 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float1"></path>
+        <path d="M1087.61 481.84 a151.88 151.88 0 1 0 303.76 0 a151.88 151.88 0 1 0 -303.76 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float1"></path>
+        <path d="M1172.82 44.74 a104.26 104.26 0 1 0 208.52 0 a104.26 104.26 0 1 0 -208.52 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float2"></path>
+        <path d="M-54.81 57.25 a166.14 166.14 0 1 0 332.28 0 a166.14 166.14 0 1 0 -332.28 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float1"></path>
+        <path d="M82.52 116.38 a170.13 170.13 0 1 0 340.26 0 a170.13 170.13 0 1 0 -340.26 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float3"></path>
+        <path d="M118.2 435.16 a144.96 144.96 0 1 0 289.92 0 a144.96 144.96 0 1 0 -289.92 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float2"></path>
+        <path d="M962.42 9.48 a107.88 107.88 0 1 0 215.76 0 a107.88 107.88 0 1 0 -215.76 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float3"></path>
+        <path d="M33.69 552.04 a154.28 154.28 0 1 0 308.56 0 a154.28 154.28 0 1 0 -308.56 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float3"></path>
+        <path d="M437.91 470.9 a183.11 183.11 0 1 0 366.22 0 a183.11 183.11 0 1 0 -366.22 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float1"></path>
+        <path d="M243.42 48.99 a166.17 166.17 0 1 0 332.34 0 a166.17 166.17 0 1 0 -332.34 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float1"></path>
+        <path d="M1236.63 208.17 a119.87 119.87 0 1 0 239.74 0 a119.87 119.87 0 1 0 -239.74 0z" fill="rgba(221, 222, 229, 0.4)" class="triangle-float2"></path>
+        <path d="M903.803,431.599C918.414,430.436,929.573,419.846,936.639,407.005C943.408,394.703,944.793,380.525,938.925,367.769C931.816,352.318,920.782,336.626,903.803,335.633C885.574,334.567,869.679,347.263,860.761,363.197C852.059,378.745,850.973,397.989,860.462,413.07C869.431,427.323,887.016,432.936,903.803,431.599" fill="rgba(221, 222, 229, 0.4)" class="triangle-float3"></path>
+        <path d="M1280.169,392.302C1300.199,392.101,1319.087,383.126,1329.787,366.193C1341.294,347.983,1344.423,325.288,1334.645,306.094C1323.938,285.077,1303.754,269.085,1280.169,268.797C1256.148,268.503,1234.454,283.437,1223.337,304.733C1212.969,324.594,1216.6,348.413,1228.797,367.206C1239.918,384.341,1259.743,392.507,1280.169,392.302" fill="rgba(221, 222, 229, 0.4)" class="triangle-float1"></path>
+    </g>
+    <defs>
+        <mask id="SvgjsMask1044">
+            <rect width="1440" height="560" fill="#ffffff"></rect>
+        </mask>
+        <style>
+            @keyframes float1 {
+                    0%{transform: translate(0, 0)}
+                    50%{transform: translate(-10px, 0)}
+                    100%{transform: translate(0, 0)}
+                }
+
+                .triangle-float1 {
+                    animation: float1 5s infinite;
+                }
+
+                @keyframes float2 {
+                    0%{transform: translate(0, 0)}
+                    50%{transform: translate(-5px, -5px)}
+                    100%{transform: translate(0, 0)}
+                }
+
+                .triangle-float2 {
+                    animation: float2 4s infinite;
+                }
+
+                @keyframes float3 {
+                    0%{transform: translate(0, 0)}
+                    50%{transform: translate(0, -10px)}
+                    100%{transform: translate(0, 0)}
+                }
+
+                .triangle-float3 {
+                    animation: float3 6s infinite;
+                }
+        </style>
+    </defs>
+</svg>
