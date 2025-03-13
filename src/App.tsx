@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { RouterProvider } from 'react-router-dom';
 import SplashScreen from './views/SplashScreen'
 import './App.css';
+import { Suspense } from "react";
+import AuthProvider from "./context/AuthContext";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -18,9 +20,11 @@ const App = () => {
     }, []);
 
     return (
-        <>
-            {isLoading ? <SplashScreen /> : <RouterProvider router={router} />}
-        </>
+        <AuthProvider>
+            <Suspense fallback={<div>Loading...</div>}>
+                {isLoading ? <SplashScreen /> : <RouterProvider router={router} />}
+            </Suspense>
+        </AuthProvider>
     );
 };
 

@@ -4,8 +4,6 @@ import {createBrowserRouter} from "react-router-dom";
 import MainRoutes from "./MainRoutes";
 import AuthRoutes from './AuthRoutes'
 
-console.log("Creating router");
-
 // combine all routes into a single router
 const router = createBrowserRouter(
     [
@@ -16,6 +14,5 @@ const router = createBrowserRouter(
         basename: process.env.REACT_APP_BASE_NAME || '/',
     }
 );
-console.log("Router created:", router);
 
 export default router;
