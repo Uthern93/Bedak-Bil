@@ -28,6 +28,10 @@ const MainRoutes = {
             element: <Dashboard/>
         },
         {
+            path: '/dashboard',
+            element: <Dashboard/>
+        },
+        {
             path: '/transaction',
             element: <Transaction/>
         },

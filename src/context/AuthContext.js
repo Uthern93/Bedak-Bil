@@ -1,10 +1,9 @@
-import { createContext, useState, useEffect } from "react";
-import api from "../services/axios";
+import { createContext, useState, useEffect, useContext } from "react";
 import { getUser, login, logout, register } from "../services/authService";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -60,7 +59,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, googleLogin, logout }}>
+        <AuthContext.Provider value={{ user, loading, loginUser, registerUser, googleLogin, logoutUser }}>
             {children}
         </AuthContext.Provider>
     );

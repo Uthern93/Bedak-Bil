@@ -1,11 +1,10 @@
 // routing
 import router from "./routes";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { RouterProvider } from 'react-router-dom';
 import SplashScreen from './views/SplashScreen'
 import './App.css';
-import { Suspense } from "react";
-import AuthProvider from "./context/AuthContext";
+import {AuthProvider} from "./context/AuthContext";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);

@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import {useAuth} from '../../context/AuthContext'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 
 const CLIENT_ID = "your-google-client-id";
 
@@ -10,11 +11,28 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const { loginUser, googleLogin } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+    const [status, setStatus] = useState('');
+    const [dialogMessage, setDialogMessage] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleLogin = async () => {
-        const response = await loginUser(email, password);
-        console.log("Login Success:", response.data);
-        navigate("/dashboard");
+        setIsLoading(true);
+        try {
+            const response = await loginUser(email, password);
+            setStatus(response.success);
+
+            if (response.success) {
+                setDialogMessage("Login successful!");
+            } else {
+                setDialogMessage(response.message || "Login failed.");
+            }
+            setDialogOpen(true);
+        } catch (error) {
+            console.error("Login failed:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
@@ -25,6 +43,12 @@ const Login = () => {
             console.log("Google login failed, no credential received");
         }
     };
+
+    const handleCloseDialog = () =>
+    {
+        setDialogOpen(false);
+        navigate('/dashboard')
+    }
 
     return (
         <GoogleOAuthProvider clientId={CLIENT_ID}>
@@ -46,8 +70,9 @@ const Login = () => {
                         required
                     />
                     <button
-                        className="w-full mt-6 bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+                        className={isLoading ? 'w-full mt-6 bg-blue-300 text-white p-3 rounded-lg' : "w-full mt-6 bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700" }
                         onClick={handleLogin}
+                        disabled={isLoading}
                     >
                         Login
                     </button>
@@ -67,6 +92,24 @@ const Login = () => {
                     </p>
                 </div>
             </div>
+
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+            <DialogTitle>{status ? "Success" : "Error"}</DialogTitle>
+            <DialogContent>
+                {status ? (
+                    <img src="public/success.gif" alt="Success" />
+                ) : (
+                    <img src="public/success.gif" alt="Failure" />
+                )}
+                <p>{dialogMessage}</p>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleCloseDialog} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+
         </GoogleOAuthProvider>
     );
 };

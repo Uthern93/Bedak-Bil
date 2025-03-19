@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
+import AuthGuard from "../utils/route-guard/AuthGuard";
 
 // Lazy load authentication pages
 const Login = lazy(() => import("../views/authentication/login"));
@@ -8,6 +9,7 @@ const Register = lazy(() => import("../views/authentication/register"));
 
 const AuthRoutes = {
     path: "/auth",
+    element: <AuthGuard />,
     children: [
         { 
             path: "login", 
@@ -19,7 +21,7 @@ const AuthRoutes = {
         },
         // { 
         //     path: "/forgot-password", 
-        //     element: <ForgotPassword /> 
+        //     element: <ForgotPassword />  
         // },
     ],
 };
