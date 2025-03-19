@@ -1,177 +1,183 @@
-import React from "react";
-import { Typography, Box, Avatar, IconButton } from "@mui/material";
+import React, { useState} from "react";
+import { 
+    Grid, 
+    Card, 
+    Avatar, 
+    Typography, 
+    IconButton, 
+    List, 
+    ListItem, 
+    ListItemIcon, 
+    ListItemText, 
+    Divider,
+    Button, 
+    Dialog, 
+    DialogTitle, 
+    DialogContent, 
+    DialogActions 
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import PersonIcon from "@mui/icons-material/Person";
-import EmailIcon from "@mui/icons-material/Email";
+import MailIcon from "@mui/icons-material/Mail";
 import PhoneIcon from "@mui/icons-material/Phone";
 import CakeIcon from "@mui/icons-material/Cake";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {useAuth} from '../../context/AuthContext'
+import Lottie from 'react-lottie';
+import animationData from '../../lotties/success.json';
+import animationData2 from '../../lotties/failed.json';
 
-const Profile = () => {
+const ProfileSection = () => {
+    const { logout } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
+    const [status, setStatus] = useState('');
+    const [dialogMessage, setDialogMessage] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false);
+
+    const handleLogout = async () => {
+        setIsLoading(true);
+        try {
+            const response = await logout();
+            setStatus(response.success);
+
+            if (response.success) {
+                setDialogMessage("Login successful!");
+            } else {
+                setDialogMessage(response.message || "Login failed.");
+            }
+            setDialogOpen(true);
+        } catch (error) {
+            console.error("Login failed:", error);
+        } finally {
+            setDialogOpen(true);
+            setIsLoading(false);
+        }
+    };
+
+    const handleCloseDialog = () => {
+        setDialogOpen(false);
+    };
+
+    const user = {
+        name: "Uthern Sutin",
+        email: "uthern@gmail.com",
+        phone: "+6 0194456776",
+        birthDate: "14 October 2000",
+        avatar: "https://i.pravatar.cc/100", // Placeholder avatar image
+    };
+
+    //lottie animation
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
+    const defaultOptions2 = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData2,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
     return (
-        <Box
-            sx={{
-                background: "linear-gradient(to bottom, #f0f8ff, #1E88E5)",
-                minHeight: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                paddingTop: 2,
-            }}
-        >
-            {/* Header Section */}
-            <Box
-                sx={{
-                    width: "90%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    mb: 2,
-                }}
-            >
-                <IconButton>
-                    <Typography variant="h6" sx={{ color: "#000" }}>
-                        &#8592;
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <Card 
+                    sx={{
+                        padding: 3,
+                        borderRadius: "12px",
+                        boxShadow: 3,
+                        background: "white",
+                        textAlign: "left",
+                    }}
+                >
+                    {/* Header Section */}
+                    <Grid container alignItems="center" justifyContent="space-between">
+                        <Grid item display="flex" alignItems="center" gap={2}>
+                            <Avatar src={user.avatar} sx={{ width: 50, height: 50 }} />
+                            <Typography variant="h6" fontWeight="bold">
+                                {user.name}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <IconButton size="small" sx={{ color: "blue" }}>
+                                <EditIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+
+                    <Divider sx={{ my: 2 }} />
+
+                    {/* Personal Info Section */}
+                    <Typography variant="subtitle2" fontWeight="bold" sx={{ color: "black", mb: 1 }}>
+                        Personal Info
                     </Typography>
-                </IconButton>
-                <Typography variant="h6" sx={{ fontWeight: "bold", color: "#000" }}>
-                    Profile
-                </Typography>
-                <Box sx={{ width: "24px" }} /> {/* Empty space for alignment */}
-            </Box>
 
-            {/* Profile Card */}
-            <Box
-                sx={{
-                    background: "#fff",
-                    borderRadius: "20px",
-                    height: "150%",
-                    width: "80%",
-                    padding: 2,
-                    boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-                }}
-            >
-                {/* Avatar and Edit Icon */}
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        mb: 2,
-                    }}
-                >
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Avatar
-                            sx={{ width: 80, height: 80 }}
-                            src="profile_pic.svg"
-                            alt="User Avatar"
-                        />
-                        <Typography
-                            variant="h6"
-                            sx={{ ml: 2, fontWeight: "bold", color: "#000" }}
-                        >
-                            Uthern Sutin
-                        </Typography>
-                    </Box>
-                    <IconButton>
-                        <EditIcon sx={{ color: "#3f51b5" }} />
-                    </IconButton>
-                </Box>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <List sx={{ padding: 0 }}>
+                                <ListItem disablePadding>
+                                    <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                                    <ListItemText primary="Name" secondary={user.name} />
+                                </ListItem>
 
-                {/* Personal Info Section */}
-                <Typography
-                    variant="subtitle1"
-                    sx={{ fontWeight: "bold", color: "#000", mb: 1 }}
-                >
-                    Personal Info
-                </Typography>
-                {[
-                    {
-                        icon: <PersonIcon sx={{ color: "#000" }} />,
-                        label: "Name",
-                        value: "Uthern Sutin",
-                    },
-                    {
-                        icon: <EmailIcon sx={{ color: "#000" }} />,
-                        label: "Email",
-                        value: "uthern@gmail.com",
-                    },
-                    {
-                        icon: <PhoneIcon sx={{ color: "#000" }} />,
-                        label: "Phone Number",
-                        value: "+6 0194456776",
-                    },
-                    {
-                        icon: <CakeIcon sx={{ color: "#000" }} />,
-                        label: "Birth Date",
-                        value: "14 October 2000",
-                    },
-                ].map((item, index) => (
-                    <Box
-                        key={index}
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            mb: 2,
-                        }}
+                                <ListItem disablePadding>
+                                    <ListItemIcon><MailIcon /></ListItemIcon>
+                                    <ListItemText primary="Email" secondary={user.email} />
+                                </ListItem>
+
+                                <ListItem disablePadding>
+                                    <ListItemIcon><PhoneIcon /></ListItemIcon>
+                                    <ListItemText primary="Phone Number" secondary={user.phone} />
+                                </ListItem>
+
+                                <ListItem disablePadding>
+                                    <ListItemIcon><CakeIcon /></ListItemIcon>
+                                    <ListItemText primary="Birth Date" secondary={user.birthDate} />
+                                </ListItem>
+                            </List>
+                        </Grid>
+                    </Grid>
+
+                    <Divider sx={{ my: 2 }} />
+
+                    {/* Logout Section */}
+                    <Button 
+                        variant="outlined" 
+                        sx={{ width: "100%", fontWeight: "bold" }} 
+                        onClick={handleLogout}
                     >
-                        <Box
-                            sx={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                backgroundColor: "#f0f0f0",
-                                width: 40,
-                                height: 40,
-                                borderRadius: "50%",
-                                mr: 2,
-                            }}
-                        >
-                            {item.icon}
-                        </Box>
-                        <Box sx={{ flex: 1 }}>
-                            <Typography
-                                variant="body1"
-                                sx={{ color: "#000", fontWeight: "500" }}
-                            >
-                                {item.label}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                sx={{ color: "gray", fontWeight: "400" }}
-                            >
-                                {item.value}
-                            </Typography>
-                        </Box>
-                    </Box>
-                ))}
+                        Log Out
+                    </Button>
+                </Card>
+            </Grid>
 
-                {/* Logout Section */}
-                <Typography
-                    variant="body1"
-                    sx={{
-                        mt: 3,
-                        fontWeight: "bold",
-                        color: "#000",
-                    }}
+            <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="xs" fullWidth>
+                <DialogTitle 
+                    className={`${status ? "text-green-600" : "text-red-600"} text-center text-3xl font-extrabold mt-3`}
                 >
-                    My Account
-                </Typography>
-                <Typography
-                    variant="body1"
-                    sx={{
-                        mt: 1,
-                        fontWeight: "bold",
-                        color: "red",
-                        cursor: "pointer",
-                    }}
-                >
-                    Log Out
-                </Typography>
-            </Box>
+                    {status ? "Success!" : "Oh no!"}
+                </DialogTitle>
+                <DialogContent className="flex flex-col items-center">
+                    <Lottie options={status ? defaultOptions : defaultOptions2} height={100} width={100} />
+                    <p className="mt-4 text-center md:text-base sm:text-base">{dialogMessage}</p>
+                </DialogContent>
+                <DialogActions className="flex justify-center w-full">
+                    <div className="w-full flex justify-center">
+                        <Button onClick={handleCloseDialog} color="primary" variant="outlined">
+                            {status ? "Done" : "Try again"}
+                        </Button>
+                    </div>
+                </DialogActions>
+            </Dialog>
 
-
-        </Box>
+        </Grid>
     );
 };
 
-export default Profile;
+export default ProfileSection;

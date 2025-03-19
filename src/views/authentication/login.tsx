@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import {useAuth} from '../../context/AuthContext'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import Lottie from 'react-lottie';
+import animationData from '../../lotties/success.json';
+import animationData2 from '../../lotties/failed.json';
 
 const CLIENT_ID = "your-google-client-id";
 
@@ -31,6 +34,7 @@ const Login = () => {
         } catch (error) {
             console.error("Login failed:", error);
         } finally {
+            setDialogOpen(true);
             setIsLoading(false);
         }
     };
@@ -44,11 +48,33 @@ const Login = () => {
         }
     };
 
-    const handleCloseDialog = () =>
-    {
+    const handleCloseDialog = () => {
         setDialogOpen(false);
-        navigate('/dashboard')
-    }
+        
+        if (status) {
+            navigate('/dashboard');
+        }
+    };
+    
+
+    //lottie animation
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
+    const defaultOptions2 = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData2,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
 
     return (
         <GoogleOAuthProvider clientId={CLIENT_ID}>
@@ -74,7 +100,7 @@ const Login = () => {
                         onClick={handleLogin}
                         disabled={isLoading}
                     >
-                        Login
+                        {isLoading ? 'Logging in..' : 'Login'}
                     </button>
                     
                     <p className="mt-4 mb-4 text-center text-gray-600">or</p>
@@ -93,22 +119,24 @@ const Login = () => {
                 </div>
             </div>
 
-            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-            <DialogTitle>{status ? "Success" : "Error"}</DialogTitle>
-            <DialogContent>
-                {status ? (
-                    <img src="public/success.gif" alt="Success" />
-                ) : (
-                    <img src="public/success.gif" alt="Failure" />
-                )}
-                <p>{dialogMessage}</p>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleCloseDialog} color="primary">
-                    Close
-                </Button>
-            </DialogActions>
-        </Dialog>
+            <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="xs" fullWidth>
+                <DialogTitle 
+                    className={`${status ? "text-green-600" : "text-red-600"} text-center text-3xl font-extrabold mt-3`}
+                >
+                    {status ? "Success!" : "Oh no!"}
+                </DialogTitle>
+                <DialogContent className="flex flex-col items-center">
+                    <Lottie options={status ? defaultOptions : defaultOptions2} height={100} width={100} />
+                    <p className="mt-4 text-center md:text-base sm:text-base">{dialogMessage}</p>
+                </DialogContent>
+                <DialogActions className="flex justify-center w-full">
+                    <div className="w-full flex justify-center">
+                        <Button onClick={handleCloseDialog} color="primary" variant="outlined">
+                            {status ? "Done" : "Try again"}
+                        </Button>
+                    </div>
+                </DialogActions>
+            </Dialog>
 
         </GoogleOAuthProvider>
     );

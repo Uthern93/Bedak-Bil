@@ -4,7 +4,7 @@ import Header from './Header';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './Theme';
 import BottomNav from "./bottomNav";
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomHeader from './customHeader';
 
 const MainLayout = () => {

@@ -36,11 +36,10 @@ export const login = async (email, password) => {
         sessionStorage.setItem("access_token", response.data.access_token);
         sessionStorage.setItem("refresh_token", response.data.refresh_token);
         sessionStorage.setItem("expires_at", response.data.expires_at);
-        console.error("Error:", response.data.message || "An error occurred");
         return response.data;
+
     } catch (error) {
-        console.error("Error:", error.response.data.message || "An error occurred");
-        throw error;
+        return { success: false, message: error.response.data.message || "Network error, please try again." };
     }
 };
 
