@@ -1,32 +1,69 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useAuth} from '../../context/AuthContext'
-import Modal from 'react-modal';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import Lottie from 'react-lottie';
+import animationData from '../../lotties/success.json';
+import animationData2 from '../../lotties/failed.json';
 
 const Register = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const {registerUser} = useAuth();
+    const [status, setStatus] = useState('');
+    const [dialogMessage, setDialogMessage] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleRegister = async () => {
         setIsLoading(true);
         try{
             const response = await registerUser(name, email, password);
-            console.log("Register Success:", response.data);
-            setIsModalOpen(true); 
+            setStatus(response.success);
+
+            if (response.success) {
+                setDialogMessage("Login successful!");
+            } else {
+                setDialogMessage(response.message || "Login failed.");
+            }
+            setDialogOpen(true);
+
         } catch (error) {
             console.error("Login failed:", error);
-        } finally {
+        } finally { 
+            setDialogOpen(true);
             setIsLoading(false);
         }
         
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
+    const handleCloseDialog = () => {
+        setDialogOpen(false);
+        
+        if (status) {
+            navigate('/auth/login');
+        }
+    };
+
+    //lottie animation
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
+    const defaultOptions2 = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData2,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
     };
 
     return (
@@ -67,16 +104,24 @@ const Register = () => {
                 </p>
             </div>
 
-            <Modal isOpen={isModalOpen} onRequestClose={closeModal} ariaHideApp={false}>
-                <div className="modal-content">
-                    <h2>User Successfuly Registered!</h2>
-                    <video width="400" controls>
-                        <source src="public\success.webm" type="video/webm" />
-                        Your browser does not support the video tag.
-                    </video>
-                    <button onClick={closeModal}>Close</button>
-                </div>
-            </Modal>
+            <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="xs" fullWidth>
+                <DialogTitle 
+                    className={`${status ? "text-green-600" : "text-red-600"} text-center text-3xl font-extrabold mt-3`}
+                >
+                    {status ? "Success!" : "Oh no!"}
+                </DialogTitle>
+                <DialogContent className="flex flex-col items-center">
+                    <Lottie options={status ? defaultOptions : defaultOptions2} height={100} width={100} />
+                    <p className="mt-4 text-center md:text-base sm:text-base">{dialogMessage}</p>
+                </DialogContent>
+                <DialogActions className="flex justify-center w-full">
+                    <div className="w-full flex justify-center">
+                        <Button onClick={handleCloseDialog} color="primary" variant="outlined">
+                            {status ? "Done" : "Try again"}
+                        </Button>
+                    </div>
+                </DialogActions>
+            </Dialog>
 
         </div>
     );

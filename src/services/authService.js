@@ -52,12 +52,15 @@ export const googleLogin = () => {
 export const logout = async () => {
     try {
         await getCSRFToken();
-        await api.post("/api/logout");
-        window.location.href = "/auth/login";
+        const response = await api.post("/api/logout");
+        console.log(response.data);
+        
+        return response.data;
     } catch (error) {
         console.error("Logout failed", error);
     }
     sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
 };
 
 // Fetch Authenticated User

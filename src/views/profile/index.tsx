@@ -22,12 +22,14 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import CakeIcon from "@mui/icons-material/Cake";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import {useAuth} from '../../context/AuthContext'
+import { useNavigate } from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../../lotties/success.json';
 import animationData2 from '../../lotties/failed.json';
 
 const ProfileSection = () => {
-    const { logout } = useAuth();
+    const navigate = useNavigate();
+    const { logoutUser } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('');
     const [dialogMessage, setDialogMessage] = useState("");
@@ -36,17 +38,18 @@ const ProfileSection = () => {
     const handleLogout = async () => {
         setIsLoading(true);
         try {
-            const response = await logout();
+            const response = await logoutUser();
+            console.log('Logout response:' + response);
             setStatus(response.success);
 
             if (response.success) {
-                setDialogMessage("Login successful!");
+                setDialogMessage("Logout successful!");
             } else {
                 setDialogMessage(response.message || "Login failed.");
             }
             setDialogOpen(true);
         } catch (error) {
-            console.error("Login failed:", error);
+            console.error("Logout failed:", error);
         } finally {
             setDialogOpen(true);
             setIsLoading(false);
@@ -55,6 +58,10 @@ const ProfileSection = () => {
 
     const handleCloseDialog = () => {
         setDialogOpen(false);
+
+        if (status) {
+            window.location.reload();
+        }
     };
 
     const user = {
@@ -149,10 +156,10 @@ const ProfileSection = () => {
                     {/* Logout Section */}
                     <Button 
                         variant="outlined" 
-                        sx={{ width: "100%", fontWeight: "bold" }} 
+                        sx={{ width: "100%", fontWeight: "bold", color: "red", borderColor: "red" }}
                         onClick={handleLogout}
                     >
-                        Log Out
+                        {isLoading ? 'Logging out..' : 'Log Out'}
                     </Button>
                 </Card>
             </Grid>
@@ -167,7 +174,7 @@ const ProfileSection = () => {
                     <Lottie options={status ? defaultOptions : defaultOptions2} height={100} width={100} />
                     <p className="mt-4 text-center md:text-base sm:text-base">{dialogMessage}</p>
                 </DialogContent>
-                <DialogActions className="flex justify-center w-full">
+                <DialogActions className="flex justify-center w-full pb-4">
                     <div className="w-full flex justify-center">
                         <Button onClick={handleCloseDialog} color="primary" variant="outlined">
                             {status ? "Done" : "Try again"}

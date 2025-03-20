@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     const loginUser = async (email, password) => {
         try {
             const response = await login(email, password);
-            setUser(response); // Store user data in state
+            setUser(response);
             return response;
         } catch (error) {
             throw new Error("Invalid credentials");
@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }) => {
     // Register function
     const registerUser = async (name, email, password) => {
         try {
-            await register(name, email, password);
-            return loginUser(email, password);
+            const response = await register(name, email, password);
+            return response;
         } catch (error) {
             throw new Error("Registration failed");
         }
@@ -51,8 +51,9 @@ export const AuthProvider = ({ children }) => {
     // Logout function
     const logoutUser = async () => {
         try {
-            await logout();
+            const response = await logout();
             setUser(null);
+            return response;
         } catch (error) {
             console.error("Logout failed", error);
         }
