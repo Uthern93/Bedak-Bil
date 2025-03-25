@@ -24,14 +24,32 @@ const Register = () => {
             setStatus(response.success);
 
             if (response.success) {
-                setDialogMessage("Login successful!");
+                setDialogMessage("User registered!");
             } else {
-                setDialogMessage(response.message || "Login failed.");
+                let errorMessage = response.message || "Failed to register";
+    
+                if (response.errors) {
+                    console.log("Validation Errors:", response.errors); // Debugging
+                    errorMessage += "\n" + Object.values(response.errors).flat().join("\n");
+                }
+
+                setDialogMessage(errorMessage);
             }
+
             setDialogOpen(true);
 
-        } catch (error) {
-            console.error("Login failed:", error);
+        } catch (error: any) {
+            console.error("Registration failed:", error);
+            
+            const apiError = error?.response?.data;
+            let errorMessage = apiError?.message || "An unexpected error occurred.";
+
+            const validationMessages = apiError?.errors
+                ? Object.values(apiError.errors).flat().join("\n")
+                : "";
+
+            setDialogMessage(errorMessage + (validationMessages ? `\n${validationMessages}` : ""));
+            setDialogOpen(true);
         } finally { 
             setDialogOpen(true);
             setIsLoading(false);

@@ -16,14 +16,14 @@ export const register = async (name, email, password) => {
         await getCSRFToken(); 
         const response = await api.post("/api/register", { name, email, password });
 
-        sessionStorage.setItem("access_token", response.data.access_token);
-        sessionStorage.setItem("refresh_token", response.data.refresh_token);
-        sessionStorage.setItem("expires_at", response.data.expires_at);
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        localStorage.setItem("expires_at", response.data.expires_at);
 
         return response.data;
     } catch (error) {
         console.error("Error:", error.response.data.message || "An error occurred");
-        throw error;
+        return error.response?.data || { success: false, message: "An unexpected error occurred." };
     }
 };
 
@@ -33,9 +33,9 @@ export const login = async (email, password) => {
         await getCSRFToken(); 
         const response = await api.post("/api/login", { email, password });
 
-        sessionStorage.setItem("access_token", response.data.access_token);
-        sessionStorage.setItem("refresh_token", response.data.refresh_token);
-        sessionStorage.setItem("expires_at", response.data.expires_at);
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        localStorage.setItem("expires_at", response.data.expires_at);
         return response.data;
 
     } catch (error) {
@@ -54,13 +54,13 @@ export const logout = async () => {
         await getCSRFToken();
         const response = await api.post("/api/logout");
         console.log(response.data);
-        
+
         return response.data;
     } catch (error) {
         console.error("Logout failed", error);
     }
-    sessionStorage.removeItem("access_token");
-    sessionStorage.removeItem("refresh_token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
 };
 
 // Fetch Authenticated User

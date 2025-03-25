@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import SplashScreen from './views/SplashScreen'
 import './App.css';
 import {AuthProvider} from "./context/AuthContext";
+import Loader from './ui-component/Loader'
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +21,7 @@ const App = () => {
 
     return (
         <AuthProvider>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader/>}>
                 {isLoading ? <SplashScreen /> : <RouterProvider router={router} />}
             </Suspense>
         </AuthProvider>
