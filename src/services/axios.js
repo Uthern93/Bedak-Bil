@@ -14,13 +14,13 @@ const api = axios.create({
 
 // Add an interceptor to include auth token in all requests
 api.interceptors.request.use(async (config) => {
-    let token = sessionStorage.getItem("access_token");
+    let token = localStorage.getItem("access_token");
 
     // Check if token is expired
     if (isTokenExpired()) {
         console.log("Token expired. Trying to refresh...");
         
-        const refreshToken = sessionStorage.getItem("refresh_token");
+        const refreshToken = localStorage.getItem("refresh_token");
 
         if (refreshToken) {
             try {
@@ -29,13 +29,13 @@ api.interceptors.request.use(async (config) => {
                 });
 
                 // Store new access token and update expiry time
-                sessionStorage.setItem("access_token", response.data.access_token);
-                sessionStorage.setItem("expires_at", Date.now() + 15 * 60 * 1000);
+                localStorage.setItem("access_token", response.data.access_token);
+                localStorage.setItem("expires_at", Date.now() + 15 * 60 * 1000);
 
                 token = response.data.access_token;
             } catch (error) {
                 console.error("Refresh token expired. Logging out...");
-                sessionStorage.clear();
+                localStorage.clear();
             }
         }
     }
@@ -54,7 +54,7 @@ api.interceptors.response.use(
     async (error) => {
         if (error.response?.status === 401) {
             console.log("Unauthorized. Logging out...");
-            sessionStorage.clear();
+            localStorage.clear();
         }
         return Promise.reject(error);
     }

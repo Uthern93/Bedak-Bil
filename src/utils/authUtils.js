@@ -1,6 +1,6 @@
 //checking for token expiry date
 export const isTokenExpired = () => {
-    const expiresAt = sessionStorage.getItem("expires_at");
+    const expiresAt = localStorage.getItem("expires_at");
     
     if (!expiresAt) return true; // If no expiry date, assume expired
 
