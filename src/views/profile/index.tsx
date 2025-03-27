@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import { 
     Grid, 
     Card, 
@@ -27,13 +27,31 @@ import Lottie from 'react-lottie';
 import animationData from '../../lotties/success.json';
 import animationData2 from '../../lotties/failed.json';
 
+interface User {
+    name: string;
+    email: string;
+    phone?: string;
+    birthDate?: string;
+    updated_at?: string;
+}
+
 const ProfileSection = () => {
     const navigate = useNavigate();
-    const { logoutUser, user } = useAuth();
+    const { logoutUser, fetchUser } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('');
     const [dialogMessage, setDialogMessage] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const response = await fetchUser();
+            setUser(response.data);
+        };
+        
+        fetchUserData();
+    }, []);
 
     const handleLogout = async () => {
         setIsLoading(true);
@@ -60,7 +78,7 @@ const ProfileSection = () => {
         setDialogOpen(false);
 
         if (status) {
-            window.location.reload();
+            navigate('/auth/login');
         }
     };
 
@@ -108,7 +126,7 @@ const ProfileSection = () => {
                         <Grid item display="flex" alignItems="center" gap={2}>
                             <Avatar src={"https://i.pravatar.cc/100"} sx={{ width: 50, height: 50 }} />
                             <Typography variant="h6" fontWeight="bold">
-                                {user.name}
+                                {user?.name || ''}
                             </Typography>
                         </Grid>
                         <Grid item>
@@ -130,28 +148,28 @@ const ProfileSection = () => {
                             <List sx={{ padding: 0 }}>
                                 <ListItem disablePadding>
                                     <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                                    <ListItemText primary="Name" secondary={user.name} />
+                                    <ListItemText primary="Name" secondary={user?.name || ''} />
                                 </ListItem>
 
                                 <ListItem disablePadding>
                                     <ListItemIcon><MailIcon /></ListItemIcon>
-                                    <ListItemText primary="Email" secondary={user.email} />
+                                    <ListItemText primary="Email" secondary={user?.email || ''} />
                                 </ListItem>
 
                                 <ListItem disablePadding>
                                     <ListItemIcon><PhoneIcon /></ListItemIcon>
-                                    <ListItemText primary="Phone Number" secondary={user.phone ?? 'Update the profile'} />
+                                    <ListItemText primary="Phone Number" secondary={user?.phone || 'Update the profile'} />
                                 </ListItem>
 
                                 <ListItem disablePadding>
                                     <ListItemIcon><CakeIcon /></ListItemIcon>
-                                    <ListItemText primary="Birth Date" secondary={user.birthDate ?? 'Update the profile'} />
+                                    <ListItemText primary="Birth Date" secondary={user?.birthDate || 'Update the profile'} />
                                 </ListItem>
                             </List>
                         </Grid>
                     </Grid>
 
-                    {user.updated_at && (
+                    {user?.updated_at && (
                     <Grid item xs={12}>
                         <Divider sx={{ my: 2 }} />
                         <Typography variant="subtitle2" sx={{ color: "gray" }}>

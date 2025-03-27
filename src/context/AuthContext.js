@@ -8,19 +8,16 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     // Fetch user details on initial load if token exists
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await getUser();
-                setUser(response.data);
-            } catch (error) {
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUser();
-    }, []);
+    const fetchUser = async () => {
+        try {
+            const response = await getUser();
+            return response
+        } catch (error) {
+            setUser(null);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Login function
     const loginUser = async (email, password) => {
@@ -60,7 +57,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, loginUser, registerUser, googleLogin, logoutUser }}>
+        <AuthContext.Provider value={{ user, loading, loginUser, registerUser, googleLogin, logoutUser, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

@@ -51,16 +51,17 @@ export const googleLogin = () => {
 // Logout function (Removed CSRF request)
 export const logout = async () => {
     try {
-        await getCSRFToken();
         const response = await api.post("/api/logout");
         console.log(response.data);
 
         return response.data;
     } catch (error) {
         console.error("Logout failed", error);
+    } finally{
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
     }
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    
 };
 
 // Fetch Authenticated User
