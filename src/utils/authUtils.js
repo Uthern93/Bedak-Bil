@@ -4,5 +4,5 @@ export const isTokenExpired = () => {
     
     if (!expiresAt) return true; // If no expiry date, assume expired
 
-    return Date.now() / 1000 > parseInt(expiresAt, 10); // Convert to seconds
+    return Date.now() / 1000 > parseInt(expiresAt, 10);
 };

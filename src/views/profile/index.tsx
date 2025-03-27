@@ -29,7 +29,7 @@ import animationData2 from '../../lotties/failed.json';
 
 const ProfileSection = () => {
     const navigate = useNavigate();
-    const { logoutUser } = useAuth();
+    const { logoutUser, user } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('');
     const [dialogMessage, setDialogMessage] = useState("");
@@ -64,13 +64,13 @@ const ProfileSection = () => {
         }
     };
 
-    const user = {
-        name: "Uthern Sutin",
-        email: "uthern@gmail.com",
-        phone: "+6 0194456776",
-        birthDate: "14 October 2000",
-        avatar: "https://i.pravatar.cc/100", // Placeholder avatar image
-    };
+    // const user = {
+    //     name: "Uthern Sutin",
+    //     email: "uthern@gmail.com",
+    //     phone: "+6 0194456776",
+    //     birthDate: "14 October 2000",
+    //     avatar: "https://i.pravatar.cc/100", // Placeholder avatar image
+    // };
 
     //lottie animation
     const defaultOptions = {
@@ -106,7 +106,7 @@ const ProfileSection = () => {
                     {/* Header Section */}
                     <Grid container alignItems="center" justifyContent="space-between">
                         <Grid item display="flex" alignItems="center" gap={2}>
-                            <Avatar src={user.avatar} sx={{ width: 50, height: 50 }} />
+                            <Avatar src={"https://i.pravatar.cc/100"} sx={{ width: 50, height: 50 }} />
                             <Typography variant="h6" fontWeight="bold">
                                 {user.name}
                             </Typography>
@@ -140,16 +140,25 @@ const ProfileSection = () => {
 
                                 <ListItem disablePadding>
                                     <ListItemIcon><PhoneIcon /></ListItemIcon>
-                                    <ListItemText primary="Phone Number" secondary={user.phone} />
+                                    <ListItemText primary="Phone Number" secondary={user.phone ?? 'Update the profile'} />
                                 </ListItem>
 
                                 <ListItem disablePadding>
                                     <ListItemIcon><CakeIcon /></ListItemIcon>
-                                    <ListItemText primary="Birth Date" secondary={user.birthDate} />
+                                    <ListItemText primary="Birth Date" secondary={user.birthDate ?? 'Update the profile'} />
                                 </ListItem>
                             </List>
                         </Grid>
                     </Grid>
+
+                    {user.updated_at && (
+                    <Grid item xs={12}>
+                        <Divider sx={{ my: 2 }} />
+                        <Typography variant="subtitle2" sx={{ color: "gray" }}>
+                            Last Updated: {new Date(user.updated_at).toLocaleString()}
+                        </Typography>
+                    </Grid>
+                )}
 
                     <Divider sx={{ my: 2 }} />
 
